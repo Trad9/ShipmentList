@@ -13,12 +13,21 @@ class ShipmentListView(APIView):
         return Response(serializer.data)
 
 
-class ShipmentItemView(generics.RetrieveUpdateAPIView):
+class ShipmentItemUpdate(generics.RetrieveUpdateAPIView):
     lookup_field = 'pk'
     serializer_class = ShipmentSerializer
 
     def get_queryset(self):
         return Shipment.objects.filter(pk=self.kwargs.get('pk'))
+
+
+class ShipmentItemView(generics.RetrieveAPIView):
+    lookup_field = 'pk'
+    serializer_class = ShipmentSerializer
+
+    def get_queryset(self):
+        return Shipment.objects.filter(pk=self.kwargs.get('pk'))
+
 
 
 class ShipmentItemCreateView(generics.CreateAPIView):
